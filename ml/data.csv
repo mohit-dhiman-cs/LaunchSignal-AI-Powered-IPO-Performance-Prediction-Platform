@@ -1,0 +1,182 @@
+company,gmp,retail_sub,qib_sub,nii_sub,issue_size,sector,market_trend,listing_return
+Paytm,-10,1.66,2.79,1.97,18300,Fintech,-0.5,-27.4
+Zomato,12,38.25,51.79,33.49,9375,Food Tech,1.2,66.0
+Nykaa,60,12.24,91.49,111.88,5352,E-commerce,0.8,78.0
+CarTrade,35,20.29,4.76,1.01,2999,Auto Tech,0.5,-8.0
+Devyani International,45,113.94,100.77,32.16,1838,Food,1.0,56.3
+Glenmark Life Sciences,60,47.54,72.78,68.32,1514,Pharma,0.9,43.7
+Windlas Biotech,50,41.11,14.54,14.94,401,Pharma,0.8,25.2
+Krsnaa Diagnostics,45,64.55,76.95,87.03,1214,Healthcare,0.7,47.5
+Clean Science Technology,60,93.38,89.04,89.73,1547,Chemicals,1.1,100.2
+GR Infraprojects,95,108.59,116.49,93.33,963,Infrastructure,1.0,99.0
+Tatva Chintan Pharma,190,180.31,180.15,180.65,500,Pharma,1.2,95.0
+Zomato_v2,13,38.25,51.79,33.49,9375,Food Tech,1.2,53.8
+Rolex Rings,250,130.43,135.69,148.94,731,Manufacturing,1.1,40.0
+India Pesticides,60,114.22,111.13,112.93,800,Agri,1.0,75.4
+Shyam Metalics,40,121.43,118.58,107.33,909,Metals,0.9,20.0
+MTAR Technologies,85,200.79,193.62,201.07,596,Defence,1.2,85.3
+IRFC,3,3.49,2.88,1.35,4633,Finance,0.6,10.5
+Railtel Corporation,18,42.35,67.89,102.35,819,IT,0.8,19.4
+Indigo Paints,425,117.00,196.93,152.53,1176,Consumer,1.1,75.0
+Stove Kraft,90,8.86,44.52,29.31,413,Consumer Durables,0.9,72.5
+Home First Finance,82,26.63,116.99,118.61,1154,Finance,1.0,28.5
+Brookfield REIT,5,1.67,2.88,0.82,3800,REIT,0.5,0.4
+Antony Waste Handling,60,50.13,72.38,46.89,300,Infrastructure,0.8,72.9
+Mrs Bectors Food,115,198.02,163.46,162.40,541,FMCG,1.1,73.0
+Burger King India,35,156.65,70.46,55.51,810,Food,0.9,92.3
+Gland Pharma,50,33.59,107.12,108.10,6480,Pharma,1.0,21.2
+Equitas Small Finance,5,1.97,2.12,0.85,518,Banking,0.6,5.8
+Mazagon Dock,120,157.41,113.68,135.34,444,Defence,1.1,49.9
+Route Mobile,130,73.31,83.47,63.75,600,Telecom,1.0,101.2
+Happiest Minds,140,150.98,175.82,150.70,702,IT,1.1,110.6
+Angel Broking,55,3.95,3.97,2.25,600,Finance,0.8,10.5
+Chemcon Speciality,80,149.28,148.55,148.87,318,Chemicals,1.0,112.6
+CAMS,62,47.21,62.43,53.12,2244,Fintech,0.9,22.8
+UTI AMC,12,2.26,3.72,0.36,2160,Finance,0.7,-3.5
+Likhitha Infrastructure,50,40.26,32.95,51.38,61,Infrastructure,0.9,51.3
+SBI Cards,60,26.54,57.14,53.55,10340,Finance,1.0,11.5
+HDFC Life Insurance,50,4.83,5.98,3.20,8695,Insurance,0.9,8.2
+Polycab India,95,52.38,48.93,41.25,1346,Electricals,1.0,21.1
+Lemon Tree Hotels,-5,1.24,2.78,0.95,1038,Hospitality,0.4,-6.1
+Bandhan Bank,37,14.63,34.29,17.14,4473,Banking,0.8,34.6
+Amber Enterprises,100,29.29,20.80,24.35,600,Consumer Durables,1.0,28.9
+Astron Paper,25,27.26,31.93,38.36,22,Paper,0.7,29.4
+Galaxy Surfactants,60,8.45,15.12,12.01,937,Chemicals,0.9,2.2
+Salasar Techno,15,273.60,203.38,227.28,36,Infrastructure,0.8,63.0
+AU Small Finance,140,53.61,52.86,51.31,1913,Banking,1.0,51.1
+CDSL,20,170.29,111.06,92.25,524,Finance,0.9,122.3
+Quickheal,18,1.48,6.52,2.65,451,IT Security,0.6,-2.1
+HPL Electric,10,0.76,2.11,1.18,361,Electricals,0.5,-30.0
+Mahanagar Gas,28,56.14,78.99,64.31,1040,Gas,0.9,27.8
+Thyrocare,55,72.87,113.92,132.78,480,Healthcare,1.0,37.7
+LT Technology Services,90,14.24,27.68,25.05,895,IT,1.1,12.7
+Quess Corp,35,10.99,24.53,21.70,400,Staffing,0.8,20.4
+Teamlease Services,100,8.44,18.91,15.46,422,Staffing,0.9,30.4
+Narayana Hrudayalaya,8,5.38,12.78,8.34,613,Healthcare,0.7,3.5
+Syngene,50,3.12,6.48,3.45,550,Pharma,0.8,28.5
+VRL Logistics,30,41.69,13.00,12.24,469,Logistics,0.8,1.6
+UFO Moviez,30,5.62,7.21,5.84,600,Media,0.7,-10.2
+Inox Wind,22,19.01,30.85,24.76,900,Energy,0.8,30.4
+Snowman Logistics,18,71.00,23.07,53.43,200,Logistics,0.7,5.3
+Shriram City Union,-3,1.15,2.45,0.96,399,Finance,0.5,-5.2
+Just Dial,30,33.10,17.20,18.30,950,Internet,0.9,10.5
+LIC,4,2.95,2.83,1.73,20557,Insurance,0.6,-8.1
+Delhivery,15,1.63,2.55,1.12,5235,Logistics,0.5,-30.2
+Rainbow Childrens Medicare,120,6.76,16.18,9.20,1581,Healthcare,1.0,13.0
+Venus Pipes and Tubes,150,151.73,149.12,149.87,165,Manufacturing,1.0,75.3
+Vedant Fashions,30,1.70,3.46,1.69,3149,Retail,0.7,-4.4
+Adani Wilmar,25,17.37,25.37,12.53,3600,FMCG,0.9,43.8
+Rategain Travel,20,0.86,4.25,0.69,1336,Travel Tech,0.6,-7.0
+Sapphire Foods,75,3.56,17.84,12.30,2073,Food,0.8,14.0
+SJS Enterprises,80,23.53,25.35,21.17,800,Manufacturing,0.9,15.8
+Latent View Analytics,70,326.49,321.59,321.32,600,Analytics,1.2,148.1
+PB Fintech (Policybazaar),50,16.59,26.58,17.33,5710,Fintech,0.8,24.5
+Nuvoco Vistas,-5,1.78,2.01,0.85,5000,Cement,0.5,-11.0
+Vijaya Diagnostic,90,4.19,12.60,7.81,1895,Healthcare,0.9,25.4
+Chemplast Sanmar,55,4.05,5.77,1.91,3850,Chemicals,0.8,-2.0
+Aptus Value Housing,60,2.14,8.03,3.40,2780,Finance,0.8,18.1
+Krsnaa Diagnostics_v2,45,64.55,76.95,87.03,1214,Healthcare,0.7,47.5
+Exxaro Tiles,35,67.81,65.23,68.00,161,Building Materials,0.9,15.7
+Rolex Rings_v2,260,130.43,135.69,148.94,731,Manufacturing,1.1,50.7
+GR Infra_v2,90,108.59,116.49,93.33,963,Infrastructure,1.0,85.7
+Dodla Dairy,40,43.48,53.34,55.50,520,FMCG,0.9,40.6
+Krishna Institute of Medical,50,61.80,90.50,83.80,2144,Healthcare,1.0,50.0
+MTAR Tech_v2,80,200.79,193.62,201.07,596,Defence,1.2,81.5
+Suryoday Small Finance,10,2.34,0.87,0.82,582,Banking,0.6,3.2
+Nazara Technologies,450,175.46,162.98,157.31,583,Gaming,1.2,78.6
+Easy Trip Planners,30,159.33,82.46,55.95,510,Travel Tech,1.1,26.5
+Craftsman Automation,80,22.90,50.12,49.90,824,Manufacturing,0.9,8.9
+MTAR Tech_v3,90,200.79,193.62,201.07,596,Defence,1.2,88.1
+Macrotech Developers (Lodha),8,1.90,3.65,1.28,2500,Real Estate,0.5,-9.1
+Barbeque Nation,85,24.39,23.34,26.35,453,Food,0.9,40.2
+Heranba Industries,300,83.36,82.73,82.93,625,Agri,1.1,93.4
+ANUPAM RASAYAN,120,44.24,80.69,81.69,760,Chemicals,1.0,37.7
+Kalyan Jewellers,0,2.60,1.83,1.23,1175,Retail,-0.2,-14.8
+Brookfield India REIT,3,1.56,2.11,0.78,3800,REIT,0.5,2.5
+Home First Finance_v2,80,26.63,116.99,118.61,1154,Finance,1.0,25.1
+Stove Kraft_v2,85,8.86,44.52,29.31,413,Consumer Durables,0.9,67.3
+IRFC_v2,4,3.49,2.88,1.35,4633,Finance,0.6,12.3
+Indigo Paints_v2,400,117.00,196.93,152.53,1176,Consumer,1.1,70.0
+Antony Waste_v2,55,50.13,72.38,46.89,300,Infrastructure,0.8,68.7
+Railtel Corp_v2,20,42.35,67.89,102.35,819,IT,0.8,22.1
+Burger King_v2,30,156.65,70.46,55.51,810,Food,0.9,88.4
+Mrs Bectors_v2,110,198.02,163.46,162.40,541,FMCG,1.1,70.1
+Gland Pharma_v2,45,33.59,107.12,108.10,6480,Pharma,1.0,18.5
+Happiest Minds_v2,150,150.98,175.82,150.70,702,IT,1.1,115.0
+Route Mobile_v2,125,73.31,83.47,63.75,600,Telecom,1.0,97.0
+Angel Broking_v2,50,3.95,3.97,2.25,600,Finance,0.8,8.9
+CAMS_v2,60,47.21,62.43,53.12,2244,Fintech,0.9,20.5
+Chemcon_v2,75,149.28,148.55,148.87,318,Chemicals,1.0,108.5
+LIC_v2,3,2.95,2.83,1.73,20557,Insurance,0.6,-9.5
+SBI Cards_v2,55,26.54,57.14,53.55,10340,Finance,1.0,9.8
+PB Fintech_v2,45,16.59,26.58,17.33,5710,Fintech,0.8,20.1
+Policybazaar,48,16.59,26.58,17.33,5710,Fintech,0.8,22.3
+Latent View_v2,65,326.49,321.59,321.32,600,Analytics,1.2,140.5
+Nykaa_v2,55,12.24,91.49,111.88,5352,E-commerce,0.8,72.1
+Windlas_v2,45,41.11,14.54,14.94,401,Pharma,0.8,22.6
+Devyani_v2,40,113.94,100.77,32.16,1838,Food,1.0,50.7
+GlenmarkLife_v2,55,47.54,72.78,68.32,1514,Pharma,0.9,40.1
+Tatva Chintan_v2,180,180.31,180.15,180.65,500,Pharma,1.2,88.5
+India Pesti_v2,55,114.22,111.13,112.93,800,Agri,1.0,71.0
+Shyam Metal_v2,35,121.43,118.58,107.33,909,Metals,0.9,17.2
+Rolex Rings_v3,240,130.43,135.69,148.94,731,Manufacturing,1.1,45.0
+Salasar_v2,12,273.60,203.38,227.28,36,Infrastructure,0.8,58.2
+CDSL_v2,18,170.29,111.06,92.25,524,Finance,0.9,118.5
+AU Small Finance_v2,135,53.61,52.86,51.31,1913,Banking,1.0,48.9
+Nazara Tech_v2,420,175.46,162.98,157.31,583,Gaming,1.2,72.0
+Heranba_v2,280,83.36,82.73,82.93,625,Agri,1.1,88.0
+Anupam Rasayan_v2,110,44.24,80.69,81.69,760,Chemicals,1.0,34.5
+Easy Trip_v2,28,159.33,82.46,55.95,510,Travel Tech,1.1,22.0
+Clean Science_v2,55,93.38,89.04,89.73,1547,Chemicals,1.1,95.0
+GR Infra_v3,85,108.59,116.49,93.33,963,Infrastructure,1.0,80.2
+MTAR Tech_v4,75,200.79,193.62,201.07,596,Defence,1.2,78.0
+Krsnaa Diag_v3,40,64.55,76.95,87.03,1214,Healthcare,0.7,44.2
+CarTrade_v2,30,20.29,4.76,1.01,2999,Auto Tech,0.5,-10.1
+Zomato_v3,10,38.25,51.79,33.49,9375,Food Tech,1.2,50.5
+Paytm_v2,-15,1.66,2.79,1.97,18300,Fintech,-0.5,-30.1
+Inox Wind_v2,20,19.01,30.85,24.76,900,Energy,0.8,28.1
+UFO Moviez_v2,25,5.62,7.21,5.84,600,Media,0.7,-13.1
+LT Tech_v2,85,14.24,27.68,25.05,895,IT,1.1,10.5
+Quess Corp_v2,30,10.99,24.53,21.70,400,Staffing,0.8,17.2
+Teamlease_v2,95,8.44,18.91,15.46,422,Staffing,0.9,27.1
+Thyrocare_v2,50,72.87,113.92,132.78,480,Healthcare,1.0,34.2
+Syngene_v2,48,3.12,6.48,3.45,550,Pharma,0.8,26.0
+Mahanagar Gas_v2,25,56.14,78.99,64.31,1040,Gas,0.9,24.5
+HDFC Life_v2,45,4.83,5.98,3.20,8695,Insurance,0.9,5.8
+Polycab_v2,90,52.38,48.93,41.25,1346,Electricals,1.0,19.5
+Bandhan Bank_v2,33,14.63,34.29,17.14,4473,Banking,0.8,31.2
+Amber_v2,95,29.29,20.80,24.35,600,Consumer Durables,1.0,26.4
+Galaxy Surf_v2,55,8.45,15.12,12.01,937,Chemicals,0.9,0.8
+Narayana_v2,6,5.38,12.78,8.34,613,Healthcare,0.7,2.1
+VRL Logistics_v2,25,41.69,13.00,12.24,469,Logistics,0.8,-1.2
+Snowman_v2,15,71.00,23.07,53.43,200,Logistics,0.7,3.5
+Just Dial_v2,25,33.10,17.20,18.30,950,Internet,0.9,8.2
+Delhivery_v2,10,1.63,2.55,1.12,5235,Logistics,0.5,-28.5
+Rainbow_v2,115,6.76,16.18,9.20,1581,Healthcare,1.0,11.5
+Venus Pipes_v2,145,151.73,149.12,149.87,165,Manufacturing,1.0,71.5
+Adani Wilmar_v2,22,17.37,25.37,12.53,3600,FMCG,0.9,41.0
+Rategain_v2,18,0.86,4.25,0.69,1336,Travel Tech,0.6,-9.5
+Sapphire Foods_v2,70,3.56,17.84,12.30,2073,Food,0.8,11.5
+SJS Enter_v2,75,23.53,25.35,21.17,800,Manufacturing,0.9,13.5
+Nuvoco_v2,-8,1.78,2.01,0.85,5000,Cement,0.5,-13.5
+Vijaya Diag_v2,85,4.19,12.60,7.81,1895,Healthcare,0.9,23.0
+Chemplast_v2,50,4.05,5.77,1.91,3850,Chemicals,0.8,-4.5
+Aptus Value_v2,55,2.14,8.03,3.40,2780,Finance,0.8,16.5
+Exxaro_v2,30,67.81,65.23,68.00,161,Building Materials,0.9,13.0
+Dodla Dairy_v2,35,43.48,53.34,55.50,520,FMCG,0.9,37.5
+Krishna IMC_v2,45,61.80,90.50,83.80,2144,Healthcare,1.0,47.0
+Barbeque_v2,80,24.39,23.34,26.35,453,Food,0.9,37.0
+Macrotech_v2,5,1.90,3.65,1.28,2500,Real Estate,0.5,-11.5
+Kalyan_v2,-2,2.60,1.83,1.23,1175,Retail,-0.2,-17.0
+Craftsman_v2,75,22.90,50.12,49.90,824,Manufacturing,0.9,6.5
+Suryoday_v2,8,2.34,0.87,0.82,582,Banking,0.6,1.5
+Equitas_v2,4,1.97,2.12,0.85,518,Banking,0.6,3.5
+Mazagon Dock_v2,115,157.41,113.68,135.34,444,Defence,1.1,46.5
+HPL Electric_v2,8,0.76,2.11,1.18,361,Electricals,0.5,-32.0
+Quickheal_v2,15,1.48,6.52,2.65,451,IT Security,0.6,-4.5
+Vedant Fashion_v2,25,1.70,3.46,1.69,3149,Retail,0.7,-6.5
+LIC_v3,2,2.95,2.83,1.73,20557,Insurance,0.6,-10.5
+UTI AMC_v2,10,2.26,3.72,0.36,2160,Finance,0.7,-5.5
+Brookfield_v3,4,1.56,2.11,0.78,3800,REIT,0.5,1.2
+Likhitha_v2,45,40.26,32.95,51.38,61,Infrastructure,0.9,48.0
+UFO_v3,20,5.62,7.21,5.84,600,Media,0.7,-15.0

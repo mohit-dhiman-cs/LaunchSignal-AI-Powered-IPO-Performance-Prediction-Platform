@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env/
+.venv/
+
+# Environment variables
+.env
+.env.local
+
+# Build outputs
+frontend/dist/
+build/
+dist/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Database (optional, usually you don't commit the live SQLite DB)
+*.sqlite3
+*.db
+backend/instance/
