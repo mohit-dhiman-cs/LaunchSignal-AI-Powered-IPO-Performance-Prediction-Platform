@@ -52,13 +52,7 @@ export default function PredictorPage() {
         </div>
 
         {/* ── Form + Result ─────────────────────────── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 1fr',
-          gap: 28,
-          alignItems: 'start',
-          marginBottom: 28,
-        }}>
+        <div className="main-grid">
           {/* LEFT — Form */}
           <div className="card animate-fadeUp">
             <h3 style={{ marginBottom: 24 }}>🎯 IPO Details</h3>
