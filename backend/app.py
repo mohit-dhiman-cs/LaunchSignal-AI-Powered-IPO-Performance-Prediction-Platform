@@ -30,9 +30,10 @@ def create_app():
 
     return app
 
+# Expose app object for Gunicorn
+app = create_app()
 
 if __name__ == '__main__':
-    app = create_app()
     print("\n[*] IPO Predictor Backend starting...")
     print("   -> http://localhost:5000\n")
     app.run(host='0.0.0.0', port=5000, debug=True)
