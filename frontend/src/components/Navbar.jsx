@@ -5,8 +5,11 @@ export default function Navbar() {
     <nav className="navbar">
       {/* Brand */}
       <NavLink to="/" className="navbar-brand" style={{ gap: 12 }}>
-        <div className="brand-icon" style={{ width: 38, height: 38, borderRadius: 11, fontSize: 20 }}>
-          🚀
+        <div className="brand-icon" style={{ width: 38, height: 38, borderRadius: 11, background: 'var(--gradient-accent)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 10px rgba(37,99,235,0.2)' }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 3v18h18" />
+            <path d="M7 14l5-5 4 4 5-9" />
+          </svg>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
           <span style={{

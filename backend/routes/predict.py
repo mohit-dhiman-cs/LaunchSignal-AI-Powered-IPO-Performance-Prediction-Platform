@@ -13,6 +13,7 @@ from utils import (
     compute_ipo_score, compute_feature_contributions
 )
 from database import log_prediction
+from nlp_engine import analyze_ipo_sentiment
 
 predict_bp = Blueprint('predict', __name__)
 
@@ -21,6 +22,12 @@ model        = joblib.load(os.path.join(BASE, 'model.pkl'))
 scaler       = joblib.load(os.path.join(BASE, 'scaler.pkl'))
 le           = joblib.load(os.path.join(BASE, 'label_encoder.pkl'))
 feature_cols = joblib.load(os.path.join(BASE, 'feature_cols.pkl'))
+
+models_dict = None
+try:
+    models_dict = joblib.load(os.path.join(BASE, 'models_dict.pkl'))
+except Exception:
+    pass
 
 
 def _fetch_market_trend():
@@ -51,16 +58,42 @@ def _run_prediction(payload: dict, market_trend: float):
     df = pd.DataFrame([row])
     X_scaled, _ = preprocess(df, scaler=scaler, le=le, fit=False)
 
-    predicted_return = round(float(model.predict(X_scaled)[0]), 2)
+    # Allow frontend to select which model to use
+    selected_model = model
+    model_name = payload.get('model_type', 'AI Ensemble (RF + GB)')
+    if models_dict and model_name in models_dict:
+        selected_model = models_dict[model_name]['model']
+    else:
+        model_name = "AI Ensemble (RF + GB)"
+
+    predicted_return = round(float(selected_model.predict(X_scaled)[0]), 2)
     risk             = classify_risk(predicted_return)
-    confidence       = compute_confidence(model, X_scaled)
+    confidence       = compute_confidence(selected_model, X_scaled)
     score            = compute_ipo_score(
         row['gmp'], row['retail_sub'], row['qib_sub'],
         row['nii_sub'], row['issue_size'], market_trend
     )
-    contributions    = compute_feature_contributions(model, X_scaled, feature_cols)
+    contributions    = compute_feature_contributions(selected_model, X_scaled, feature_cols)
 
-    return predicted_return, risk, confidence, score, contributions, row
+    comparisons = []
+    profit_probability = None
+
+    if models_dict:
+        for m_name, m_data in models_dict.items():
+            if m_name == 'Classifier':
+                # Run the two-step AI classification
+                prob = m_data['model'].predict_proba(X_scaled)[0]
+                profit_probability = round(prob[1] * 100, 1) # Probability of class 1 (Profit)
+                continue
+                
+            pred = round(float(m_data['model'].predict(X_scaled)[0]), 2)
+            comparisons.append({
+                "name": m_name,
+                "prediction": pred,
+                "r2": round(m_data['r2'], 3)
+            })
+
+    return predicted_return, risk, confidence, score, contributions, row, comparisons, profit_probability, model_name
 
 
 @predict_bp.route('/predict', methods=['POST'])
@@ -71,7 +104,10 @@ def predict():
         return jsonify({"error": err}), 400
 
     market_trend = data.get('market_trend') or _fetch_market_trend()
-    predicted_return, risk, confidence, score, contributions, row = _run_prediction(data, market_trend)
+    predicted_return, risk, confidence, score, contributions, row, comparisons, profit_prob, model_name = _run_prediction(data, market_trend)
+
+    # Perform NLP Sentiment Analysis if company name is provided
+    nlp_sentiment = analyze_ipo_sentiment(data.get("company_name", "Unknown"))
 
     result = {
         "predicted_return":   predicted_return,
@@ -80,7 +116,11 @@ def predict():
         "market_trend_used":  market_trend,
         "score":              score,
         "feature_impact":     contributions,
+        "comparisons":        comparisons,
         "inputs":             row,
+        "profit_probability": profit_prob,
+        "model_used":         model_name,
+        "nlp_analysis":       nlp_sentiment
     }
 
     try:
@@ -103,7 +143,7 @@ def whatif():
         return jsonify({"error": err}), 400
 
     market_trend = float(data.get('market_trend', 0.0))
-    predicted_return, risk, confidence, score, contributions, _ = _run_prediction(data, market_trend)
+    predicted_return, risk, confidence, score, contributions, _, comparisons, profit_prob, model_name = _run_prediction(data, market_trend)
 
     return jsonify({
         "predicted_return": predicted_return,
@@ -111,6 +151,8 @@ def whatif():
         "confidence":       confidence,
         "score":            score,
         "feature_impact":   contributions,
+        "profit_probability": profit_prob,
+        "model_used":         model_name
     })
 
 

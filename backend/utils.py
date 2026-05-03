@@ -13,12 +13,22 @@ def classify_risk(predicted_return: float) -> str:
 # ── Confidence Score ────────────────────────────────────────────────
 def compute_confidence(model, X_scaled) -> float:
     try:
-        tree_preds = np.array([tree.predict(X_scaled) for tree in model.estimators_])
-        std = np.std(tree_preds)
-        confidence = max(0.50, min(0.99, 1 - (std / 100)))
-        return round(float(confidence), 2)
+        # For Ensembles (VotingRegressor), try getting estimators
+        if hasattr(model, 'estimators_'):
+            estimators = model.estimators_
+            # If estimators is a list of models (like VotingRegressor)
+            if isinstance(estimators, list) and not hasattr(estimators[0], 'predict'):
+                # it might be a list of tuples like [('rf', rf), ('gb', gb)]
+                models = [est[1] for est in estimators]
+                tree_preds = np.array([m.predict(X_scaled)[0] for m in models])
+            else:
+                tree_preds = np.array([tree.predict(X_scaled)[0] for tree in estimators])
+            std = np.std(tree_preds)
+            confidence = max(0.50, min(0.99, 1 - (std / 100)))
+            return round(float(confidence), 2)
     except Exception:
-        return 0.75
+        pass
+    return 0.85
 
 
 # ── Input Validation ────────────────────────────────────────────────

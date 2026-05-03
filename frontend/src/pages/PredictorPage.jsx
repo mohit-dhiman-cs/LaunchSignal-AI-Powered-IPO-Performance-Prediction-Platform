@@ -7,12 +7,14 @@ import FeatureImpactChart from '../components/FeatureImpactChart';
 import WhatIfSimulator from '../components/WhatIfSimulator';
 import AllotmentCalc from '../components/AllotmentCalc';
 import NewsSentiment from '../components/NewsSentiment';
+import ModelComparison from '../components/ModelComparison';
 import { SubscriptionChart } from '../components/Charts';
 import { useToast } from '../context/ToastContext';
 
 export default function PredictorPage() {
   const [result, setResult]   = useState(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('explain');
   const toast = useToast();
 
   const handleResult = (res) => {
@@ -36,36 +38,42 @@ export default function PredictorPage() {
       <div className="container">
 
         {/* ── Hero ─────────────────────────────────── */}
-        <div className="hero-section animate-fadeUp">
-          <div className="hero-tag">
-            <span className="live-dot" />
-            ML Model · R² = 93.7% · Live GMP + Real-Time Market Data
+        {!hasResult && (
+          <div className="hero-section animate-fadeUp">
+            <div className="hero-tag">
+              <span className="live-dot" />
+              ML Model · R² = 93.7% · Live GMP + Real-Time Market Data
+            </div>
+            <h1 className="hero-title">
+              <span>LaunchSignal</span><br />
+              AI Powered IPO Performance Prediction
+            </h1>
+            <p className="hero-subtitle">
+              Select a live IPO or enter details manually. Our AI explains <em>why</em> it
+              made each prediction — not just a number, but the full story behind it.
+            </p>
           </div>
-          <h1 className="hero-title">
-            <span>LaunchSignal</span><br />
-            AI Powered IPO Performance Prediction
-          </h1>
-          <p className="hero-subtitle">
-            Select a live IPO or enter details manually. Our AI explains <em>why</em> it
-            made each prediction — not just a number, but the full story behind it.
-          </p>
-        </div>
+        )}
 
         {/* ── Form + Result ─────────────────────────── */}
         <div className="main-grid">
-          {/* LEFT — Form */}
-          <div className="card animate-fadeUp">
-            <h3 style={{ marginBottom: 24 }}>🎯 IPO Details</h3>
-            <IPOForm onResult={handleResult} onLoading={setLoading} />
+          {/* LEFT — Form & ScoreCard */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div className="card animate-fadeUp">
+              <h3 style={{ marginBottom: 24 }}>🎯 IPO Details</h3>
+              <IPOForm onResult={handleResult} onLoading={setLoading} />
+            </div>
+            {hasResult && (
+              <div className="animate-fadeUp">
+                <ScoreCard score={result.score} />
+              </div>
+            )}
           </div>
 
           {/* RIGHT — Result */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             {hasResult ? (
-              <>
-                <ResultCard result={result} />
-                <ScoreCard score={result.score} />
-              </>
+              <ResultCard result={result} />
             ) : (
               <div className="card" style={{
                 textAlign: 'center', padding: '60px 32px',
@@ -91,29 +99,45 @@ export default function PredictorPage() {
           </div>
         </div>
 
-        {/* ── Post-prediction panels (unlock after first prediction) ── */}
+        {/* ── Post-prediction Dashboard (Tabs) ── */}
         {hasResult && (
-          <>
-            {/* Subscription Chart */}
-            <div style={{ marginBottom: 28 }}>
-              <SubscriptionChart inputs={result.inputs} />
+          <div className="post-prediction-dashboard animate-fadeUp" style={{ marginTop: 32 }}>
+            <div style={{ display: 'flex', gap: 8, marginBottom: 24, borderBottom: '1px solid var(--border-color)', paddingBottom: 12, overflowX: 'auto' }}>
+              <button onClick={() => setActiveTab('explain')} className={`tab-btn ${activeTab === 'explain' ? 'active' : ''}`}>🧠 AI Explainability</button>
+              <button onClick={() => setActiveTab('simulator')} className={`tab-btn ${activeTab === 'simulator' ? 'active' : ''}`}>🎛️ Simulator</button>
+              {result.comparisons && (
+                <button onClick={() => setActiveTab('models')} className={`tab-btn ${activeTab === 'models' ? 'active' : ''}`}>🤖 Model Comparison</button>
+              )}
+              <button onClick={() => setActiveTab('allotment')} className={`tab-btn ${activeTab === 'allotment' ? 'active' : ''}`}>💰 Allotment Calc</button>
             </div>
 
-            {/* Feature Impact + What-If side by side */}
-            <div className="grid-2" style={{ marginBottom: 28 }}>
-              <FeatureImpactChart data={result.feature_impact} />
-              <WhatIfSimulator
-                baseInputs={result.inputs}
-                marketTrend={result.market_trend_used}
-              />
+            <div className="tab-content">
+              {activeTab === 'explain' && (
+                <div className="grid-2">
+                  <FeatureImpactChart data={result.feature_impact} />
+                  <SubscriptionChart inputs={result.inputs} />
+                </div>
+              )}
+              
+              {activeTab === 'simulator' && (
+                <WhatIfSimulator
+                  baseInputs={result.inputs}
+                  marketTrend={result.market_trend_used}
+                />
+              )}
+              
+              {activeTab === 'models' && result.comparisons && (
+                <ModelComparison comparisons={result.comparisons} />
+              )}
+              
+              {activeTab === 'allotment' && (
+                <div className="grid-2">
+                  <AllotmentCalc predictedReturn={result.predicted_return} />
+                  {/* Note: News sentiment is already heavily integrated into ResultCard now */}
+                </div>
+              )}
             </div>
-
-            {/* Allotment Calc + News Sentiment */}
-            <div className="grid-2" style={{ marginBottom: 28 }}>
-              <AllotmentCalc predictedReturn={result.predicted_return} />
-              <NewsSentiment company={result.company_name} />
-            </div>
-          </>
+          </div>
         )}
       </div>
     </div>

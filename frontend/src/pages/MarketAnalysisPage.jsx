@@ -12,6 +12,13 @@ const INDEX_META = {
   niftymid50: { label: 'Nifty Mid 50', icon: '📊' },
 };
 
+const COMMODITY_META = {
+  gold:       { label: 'Gold (1g)',    icon: '🥇' },
+  silver:     { label: 'Silver (1g)',  icon: '🥈' },
+};
+
+const ALL_META = { ...INDEX_META, ...COMMODITY_META };
+
 const PERIODS = [
   { label: '1W', value: '1wk' },
   { label: '1M', value: '1mo' },
@@ -53,7 +60,9 @@ export default function MarketAnalysisPage() {
   useEffect(() => { fetchData(period); }, [period]);
 
   const indices = data?.indices || {};
-  const activeData = indices[activeIndex];
+  const commodities = data?.commodities || {};
+  const allData = { ...indices, ...commodities };
+  const activeData = allData[activeIndex];
 
   return (
     <div className="page">
@@ -94,6 +103,7 @@ export default function MarketAnalysisPage() {
         )}
 
         {/* Index Cards */}
+        <h3 style={{ fontSize: '1.1rem', marginBottom: 16, color: 'var(--text-secondary)' }}>Indian Markets</h3>
         <div className="grid-4 animate-fadeUp" style={{ marginBottom: 28 }}>
           {Object.entries(INDEX_META).map(([key, meta]) => {
             const idx = indices[key];
@@ -125,11 +135,44 @@ export default function MarketAnalysisPage() {
           })}
         </div>
 
+        {/* Commodity Cards */}
+        <h3 style={{ fontSize: '1.1rem', marginBottom: 16, color: 'var(--text-secondary)' }}>Global Commodities</h3>
+        <div className="grid-2 animate-fadeUp" style={{ marginBottom: 28 }}>
+          {Object.entries(COMMODITY_META).map(([key, meta]) => {
+            const cmd = commodities[key];
+            const isActive = activeIndex === key;
+            const isUp = cmd?.change_pct >= 0;
+            return (
+              <div
+                key={key}
+                className="index-card"
+                id={`index-card-${key}`}
+                style={{
+                  cursor: 'pointer',
+                  border: isActive ? '1px solid var(--accent-blue)' : '1px solid var(--border-color)',
+                  background: isActive ? 'rgba(59,130,246,0.07)' : 'var(--bg-card)',
+                }}
+                onClick={() => setActiveIndex(key)}
+              >
+                <p className="index-name">{meta.icon} {meta.label}</p>
+                <p className="index-value">
+                  {cmd?.current ? `₹${cmd.current.toLocaleString('en-IN')}` : '—'}
+                </p>
+                <p className={`index-change ${isUp ? 'up' : 'down'}`}>
+                  {cmd?.change_pct != null
+                    ? `${isUp ? '▲' : '▼'} ${Math.abs(cmd.change_pct)}%`
+                    : 'Loading...'}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
         {/* Period Selector + Chart */}
         <div className="chart-wrapper animate-fadeUp" style={{ marginBottom: 28 }} id="market-chart">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <p className="chart-title" style={{ margin: 0 }}>
-              {INDEX_META[activeIndex]?.icon} {INDEX_META[activeIndex]?.label} · Price History
+              {ALL_META[activeIndex]?.icon} {ALL_META[activeIndex]?.label} · Price History
             </p>
             <div style={{ display: 'flex', gap: 6 }}>
               {PERIODS.map(p => (
@@ -151,7 +194,7 @@ export default function MarketAnalysisPage() {
             </div>
           </div>
           {activeData?.chart?.length ? (
-            <MarketIndexChart data={activeData.chart} indexName={INDEX_META[activeIndex]?.label} />
+            <MarketIndexChart data={activeData.chart} indexName={ALL_META[activeIndex]?.label} />
           ) : (
             <div style={{ height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
               {loading ? 'Loading chart...' : 'No chart data available'}
@@ -171,8 +214,8 @@ export default function MarketAnalysisPage() {
         {activeData && (
           <div className="grid-2 animate-fadeUp" style={{ marginTop: 28 }}>
             {[
-              { label: `52W High – ${INDEX_META[activeIndex]?.label}`, value: activeData.high_52w?.toLocaleString('en-IN') || '—', color: 'var(--accent-green)' },
-              { label: `52W Low – ${INDEX_META[activeIndex]?.label}`, value: activeData.low_52w?.toLocaleString('en-IN') || '—', color: 'var(--accent-red)' },
+              { label: `52W High – ${ALL_META[activeIndex]?.label}`, value: activeData.high_52w?.toLocaleString('en-IN') || '—', color: 'var(--accent-green)' },
+              { label: `52W Low – ${ALL_META[activeIndex]?.label}`, value: activeData.low_52w?.toLocaleString('en-IN') || '—', color: 'var(--accent-red)' },
             ].map(s => (
               <div key={s.label} className="card" style={{ textAlign: 'center' }}>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 8 }}>{s.label}</p>

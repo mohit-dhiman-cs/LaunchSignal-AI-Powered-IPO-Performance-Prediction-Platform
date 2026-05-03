@@ -17,7 +17,7 @@ const SECTORS = [
 
 const DEFAULT_FORM = {
   company_name: '', gmp: '', retail_sub: '', qib_sub: '',
-  nii_sub: '', issue_size: '', sector: 'IT',
+  nii_sub: '', issue_size: '', sector: 'IT', model_type: 'AI Ensemble (RF + GB)'
 };
 
 export default function IPOForm({ onResult, onLoading }) {
@@ -58,7 +58,8 @@ export default function IPOForm({ onResult, onLoading }) {
       i => i.company.toLowerCase() === name.toLowerCase()
     );
     if (liveMatch) {
-      setForm({
+      setForm(prev => ({
+        ...prev,
         company_name: liveMatch.company,
         gmp:          liveMatch.gmp        ?? '',
         retail_sub:   liveMatch.retail_sub ?? '',
@@ -66,7 +67,7 @@ export default function IPOForm({ onResult, onLoading }) {
         nii_sub:      liveMatch.nii_sub    ?? '',
         issue_size:   liveMatch.issue_size ?? '',
         sector:       liveMatch.sector !== 'Unknown' ? liveMatch.sector : 'IT',
-      });
+      }));
     }
   };
 
@@ -75,7 +76,8 @@ export default function IPOForm({ onResult, onLoading }) {
     if (!name) { setForm(DEFAULT_FORM); return; }
     const ipo = liveIpos.find(i => i.company === name);
     if (ipo) {
-      setForm({
+      setForm(prev => ({
+        ...prev,
         company_name: ipo.company,
         gmp:         ipo.gmp        ?? '',
         retail_sub:  ipo.retail_sub ?? '',
@@ -83,7 +85,7 @@ export default function IPOForm({ onResult, onLoading }) {
         nii_sub:     ipo.nii_sub    ?? '',
         issue_size:  ipo.issue_size ?? '',
         sector:      ipo.sector !== 'Unknown' ? ipo.sector : 'IT',
-      });
+      }));
     }
   };
 
@@ -103,6 +105,7 @@ export default function IPOForm({ onResult, onLoading }) {
         nii_sub:      parseFloat(form.nii_sub),
         issue_size:   parseFloat(form.issue_size),
         sector:       form.sector,
+        model_type:   form.model_type,
       });
       onResult({ ...res.data, company_name: form.company_name, inputs: form });
     } catch (err) {
@@ -127,7 +130,7 @@ export default function IPOForm({ onResult, onLoading }) {
           )}
         </div>
         {loadingIpos ? (
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Fetching live IPOs...</p>
+          <div className="skeleton-box" style={{ height: '42px', borderRadius: 'var(--radius-sm)' }}></div>
         ) : (
           <select className="form-select" onChange={handleIpoSelect} id="live-ipo-select" defaultValue="">
             <option value="">— Select a live IPO to auto-fill —</option>
@@ -193,12 +196,24 @@ export default function IPOForm({ onResult, onLoading }) {
       </div>
 
       {/* ── Sector ────────────────────────────────────────── */}
-      <div className="form-group" style={{ marginBottom: 28 }}>
-        <label className="form-label" htmlFor="sector">Sector</label>
-        <select id="sector" name="sector" className="form-select"
-          value={form.sector} onChange={handleChange} required>
-          {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
-        </select>
+      <div className="grid-2" style={{ marginBottom: 28 }}>
+        <div className="form-group">
+          <label className="form-label" htmlFor="sector">Sector</label>
+          <select id="sector" name="sector" className="form-select"
+            value={form.sector} onChange={handleChange} required>
+            {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+          </select>
+        </div>
+        <div className="form-group">
+          <label className="form-label" htmlFor="model_type">AI Engine</label>
+          <select id="model_type" name="model_type" className="form-select"
+            value={form.model_type} onChange={handleChange} required>
+            <option value="AI Ensemble (RF + GB)">Ensemble (Most Accurate)</option>
+            <option value="Gradient Boosting">Gradient Boosting</option>
+            <option value="Random Forest">Random Forest</option>
+            <option value="Linear Regression">Linear Regression (Baseline)</option>
+          </select>
+        </div>
       </div>
 
       <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginBottom: 16 }}>
