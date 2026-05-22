@@ -10,6 +10,8 @@ import NewsSentiment from '../components/NewsSentiment';
 import ModelComparison from '../components/ModelComparison';
 import { SubscriptionChart } from '../components/Charts';
 import { useToast } from '../context/ToastContext';
+import Globe from '../components/Globe';
+import ParticleWave from '../components/ParticleWave';
 
 export default function PredictorPage() {
   const [result, setResult]   = useState(null);
@@ -40,18 +42,24 @@ export default function PredictorPage() {
         {/* ── Hero ─────────────────────────────────── */}
         {!hasResult && (
           <div className="hero-section animate-fadeUp">
-            <div className="hero-tag">
-              <span className="live-dot" />
-              ML Model · R² = 93.7% · Live GMP + Real-Time Market Data
+            <ParticleWave />
+            <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
+              <div className="hero-tag">
+                <span className="live-dot" />
+                ML Model · R² = 93.7% · Live GMP + Real-Time Market Data
+              </div>
+              <h1 className="hero-title" style={{ fontSize: '2.8rem', lineHeight: 1.1 }}>
+                <span>LaunchSignal</span><br />
+                AI Powered IPO Performance Prediction
+              </h1>
+              <p className="hero-subtitle">
+                Select a live IPO or enter details manually. Our AI explains <em>why</em> it
+                made each prediction — not just a number, but the full story behind it.
+              </p>
             </div>
-            <h1 className="hero-title">
-              <span>LaunchSignal</span><br />
-              AI Powered IPO Performance Prediction
-            </h1>
-            <p className="hero-subtitle">
-              Select a live IPO or enter details manually. Our AI explains <em>why</em> it
-              made each prediction — not just a number, but the full story behind it.
-            </p>
+            <div className="hero-visual" style={{ position: 'relative', zIndex: 1 }}>
+              <Globe />
+            </div>
           </div>
         )}
 

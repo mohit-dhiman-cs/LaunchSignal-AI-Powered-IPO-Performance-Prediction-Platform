@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
+import TiltCard from './TiltCard';
 
 function RiskIcon({ risk }) {
   if (risk === 'Low')    return <span>🟢</span>;
@@ -28,9 +29,9 @@ export default function ResultCard({ result }) {
 
   if (result?.error) {
     return (
-      <div className="card" style={{ borderColor: 'var(--accent-red)' }}>
+      <TiltCard className="card" style={{ borderColor: 'var(--accent-red)' }}>
         <p style={{ color: 'var(--accent-red)', fontWeight: 600 }}>⚠️ {result.error}</p>
-      </div>
+      </TiltCard>
     );
   }
 
@@ -39,7 +40,7 @@ export default function ResultCard({ result }) {
   const confidencePct = Math.round((result.confidence ?? 0.75) * 100);
 
   return (
-    <div className="card" ref={cardRef} id="result-card">
+    <TiltCard className="card" ref={cardRef} id="result-card">
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
         <div>
@@ -215,6 +216,6 @@ export default function ResultCard({ result }) {
           Apply on Groww
         </a>
       </div>
-    </div>
+    </TiltCard>
   );
 }

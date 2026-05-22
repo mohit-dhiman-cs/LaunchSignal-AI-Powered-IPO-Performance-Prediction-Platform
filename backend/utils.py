@@ -37,16 +37,33 @@ def validate_input(data: dict) -> tuple:
     for field in required:
         if field not in data:
             return False, f"Missing required field: '{field}'"
+
+    # ── Fix 5: Type check ────────────────────────────────────────────
     try:
-        float(data['gmp'])
-        float(data['retail_sub'])
-        float(data['qib_sub'])
-        float(data['nii_sub'])
-        float(data['issue_size'])
+        gmp        = float(data['gmp'])
+        retail_sub = float(data['retail_sub'])
+        qib_sub    = float(data['qib_sub'])
+        nii_sub    = float(data['nii_sub'])
+        issue_size = float(data['issue_size'])
     except (ValueError, TypeError):
         return False, "Numeric fields must be valid numbers"
-    if float(data['issue_size']) <= 0:
-        return False, "issue_size must be greater than 0"
+
+    # ── Fix 5: Range validation (prevents ML abuse) ──────────────────
+    if not (-500 <= gmp <= 5000):
+        return False, "GMP must be between -500 and 5000"
+    if not (0 <= retail_sub <= 5000):
+        return False, "Retail subscription must be between 0 and 5000"
+    if not (0 <= qib_sub <= 5000):
+        return False, "QIB subscription must be between 0 and 5000"
+    if not (0 <= nii_sub <= 5000):
+        return False, "NII subscription must be between 0 and 5000"
+    if not (1 <= issue_size <= 50000):
+        return False, "Issue size must be between 1 and 50,000 Cr"
+
+    # ── Sector length guard ──────────────────────────────────────────
+    if not isinstance(data['sector'], str) or len(data['sector']) > 100:
+        return False, "Sector must be a valid string under 100 characters"
+
     return True, ""
 
 

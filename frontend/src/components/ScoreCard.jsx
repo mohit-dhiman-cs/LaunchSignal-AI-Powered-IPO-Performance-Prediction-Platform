@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import TiltCard from './TiltCard';
 
 function ScoreGauge({ score, color }) {
   const [animated, setAnimated] = useState(0);
@@ -72,13 +73,13 @@ export default function ScoreCard({ score }) {
   const { total, rating, color, breakdown } = score;
 
   return (
-    <div style={{
+    <TiltCard style={{
       background: 'var(--bg-card)',
       border: `1px solid ${color}33`,
       borderRadius: 'var(--radius-lg)',
       padding: '24px',
       backdropFilter: 'blur(10px)',
-    }} id="score-card">
+    }} className="score-card-tilt" id="score-card">
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
         <div>
@@ -103,7 +104,7 @@ export default function ScoreCard({ score }) {
                 <span style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{label}</span>
                 <span style={{ fontSize: '0.76rem', fontWeight: 700, color: barColor }}>{s}/{max}</span>
               </div>
-              <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 20, height: 6, overflow: 'hidden' }}>
+              <div style={{ background: '#f1f5f9', borderRadius: 20, height: 6, overflow: 'hidden' }}>
                 <div style={{
                   height: '100%',
                   width: `${pct}%`,
@@ -120,6 +121,6 @@ export default function ScoreCard({ score }) {
       <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 14, textAlign: 'center' }}>
         Proprietary scoring: GMP (30) + Subscriptions (40) + Market (20) + Size (10)
       </p>
-    </div>
+    </TiltCard>
   );
 }

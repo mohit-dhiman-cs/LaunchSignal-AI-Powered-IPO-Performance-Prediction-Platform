@@ -44,14 +44,14 @@ export function SubscriptionChart({ inputs }) {
 
   return (
     <div className="chart-wrapper" id="subscription-chart">
-      <p className="chart-title">📊 Subscription Breakdown (x)</p>
+      <p className="chart-title">📊 Subscription Breakdown (3D)</p>
       <ResponsiveContainer width="100%" height={200}>
-        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+        <BarChart data={data} margin={{ top: 15, right: 15, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} />
           <Tooltip content={<CustomTooltip />} cursor={{fill: '#f8fafc'}} />
-          <Bar dataKey="value" name="Subscription (x)" radius={[6, 6, 0, 0]}>
+          <Bar dataKey="value" name="Subscription (x)" shape={<Custom3DBar />}>
             {data.map((entry) => (
               <Cell key={entry.name} fill={entry.color} />
             ))}
@@ -146,6 +146,34 @@ export function SectorBarChart({ data }) {
   );
 }
 
+const Custom3DBar = (props) => {
+  const { fill, x, y, width, height, payload } = props;
+  const depth = 8; // 3D depth
+
+  // For negative returns, we still want the 3D faces to render correctly from a top-right perspective
+  const yTop = y;
+  const yBottom = y + height;
+
+  return (
+    <g>
+      {/* Right Face (Shadow) */}
+      <path
+        d={`M${x + width},${yTop} L${x + width + depth},${yTop - depth} L${x + width + depth},${yBottom - depth} L${x + width},${yBottom} Z`}
+        fill={fill}
+        filter="brightness(0.7)"
+      />
+      {/* Top Face (Highlight) */}
+      <path
+        d={`M${x},${yTop} L${x + depth},${yTop - depth} L${x + width + depth},${yTop - depth} L${x + width},${yTop} Z`}
+        fill={fill}
+        filter="brightness(1.2)"
+      />
+      {/* Front Face */}
+      <rect x={x} y={yTop} width={width} height={height} fill={fill} />
+    </g>
+  );
+};
+
 // ── History Return Bar Chart ─────────────────────────────────────
 export function HistoryReturnChart({ data }) {
   if (!data?.length) return null;
@@ -160,9 +188,9 @@ export function HistoryReturnChart({ data }) {
 
   return (
     <div className="chart-wrapper" id="history-chart">
-      <p className="chart-title">📈 Recent Prediction Returns</p>
+      <p className="chart-title">📈 Recent Prediction Returns (3D)</p>
       <ResponsiveContainer width="100%" height={220}>
-        <BarChart data={chartData} margin={{ top: 5, right: 10, left: 0, bottom: 36 }}>
+        <BarChart data={chartData} margin={{ top: 15, right: 15, left: 0, bottom: 36 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
           <XAxis
             dataKey="name"
@@ -180,7 +208,7 @@ export function HistoryReturnChart({ data }) {
           />
           <Tooltip content={<CustomTooltip />} cursor={{fill: '#f8fafc'}} />
           <ReferenceLine y={0} stroke="#cbd5e1" />
-          <Bar dataKey="return" name="Predicted Return" radius={[4, 4, 0, 0]}>
+          <Bar dataKey="return" name="Predicted Return" shape={<Custom3DBar />}>
             {chartData.map((entry) => (
               <Cell
                 key={entry.name}

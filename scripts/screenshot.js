@@ -20,7 +20,7 @@ const os = require('os');
   await page.setViewport({ width: 1280, height: 900 });
 
   const desktopPath = path.join(os.homedir(), 'Desktop');
-  const baseUrl = 'https://launchsignal-ai-powered-ipo-performance-prediction-platfor.pages.dev';
+  const baseUrl = 'http://localhost:5173';
 
   console.log(`Navigating to ${baseUrl}...`);
   await page.goto(baseUrl, { waitUntil: 'networkidle2' });

@@ -11,7 +11,7 @@ export default function Navbar() {
             <path d="M7 14l5-5 4 4 5-9" />
           </svg>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
+        <div className="brand-name-container">
           <span style={{
             fontFamily: 'var(--font-display)',
             fontSize: '1.05rem',
@@ -21,12 +21,13 @@ export default function Navbar() {
           }}>
             Launch<span style={{ color: 'var(--accent-blue)' }}>Signal</span>
           </span>
-          <span style={{
-            fontSize: '0.58rem',
+          <span className="brand-subtitle" style={{
+            fontSize: '0.52rem',
             fontWeight: 500,
             color: 'var(--text-muted)',
-            letterSpacing: '0.6px',
+            letterSpacing: '0.4px',
             textTransform: 'uppercase',
+            whiteSpace: 'nowrap'
           }}>
             AI · IPO Performance Prediction
           </span>

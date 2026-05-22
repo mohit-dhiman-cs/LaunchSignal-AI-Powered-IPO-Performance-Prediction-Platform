@@ -1,5 +1,6 @@
 flask
 flask-cors
+flask-limiter
 scikit-learn
 pandas
 numpy
