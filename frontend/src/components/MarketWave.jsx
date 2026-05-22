@@ -5,7 +5,10 @@ export default function MarketWave() {
     <div className="relative w-full max-w-lg mx-auto aspect-square flex flex-col items-center justify-center">
       
       {/* Background glow orb to give it depth */}
-      <div className="absolute w-64 h-64 bg-blue-400 rounded-full blur-[80px] opacity-20 animate-pulse"></div>
+      <div 
+        className="absolute bg-blue-400 rounded-full blur-3xl opacity-20 animate-pulse"
+        style={{ width: '250px', height: '250px' }}
+      ></div>
 
       {/* Modern SVG Stock Wave */}
       <svg viewBox="0 0 500 400" className="w-full h-full relative z-10 drop-shadow-2xl overflow-visible">
@@ -52,20 +55,23 @@ export default function MarketWave() {
         <line x1="500" y1="100" x2="500" y2="350" stroke="#94a3b8" strokeDasharray="4 4" strokeWidth="2" />
       </svg>
 
-      {/* Floating UI Elements */}
+      {/* Floating UI Elements - Bulletproof Styling */}
       <div 
-        className="absolute top-[25%] right-[5%] bg-white/90 backdrop-blur-sm border border-blue-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-xl px-4 py-3 z-20 transition-transform duration-1000 ease-in-out hover:-translate-y-2"
+        className="absolute bg-white bg-opacity-90 border border-blue-100 shadow-xl rounded-xl px-4 py-3 z-20 transition-transform duration-1000 ease-in-out hover:-translate-y-2"
+        style={{ top: '25%', right: '5%' }}
       >
         <div className="text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Projected Return</div>
-        <div className="text-xl font-bold text-blue-600 flex items-center gap-1">
-          <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+        <div className="text-xl font-bold text-blue-600 flex items-center gap-2">
+          <svg width="20" height="20" className="text-green-500" fill="none" stroke="#22c55e" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
           + 42.8%
         </div>
       </div>
 
       <div 
-        className="absolute top-[50%] left-[15%] bg-white/90 backdrop-blur-sm border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] rounded-xl px-4 py-2 z-20 animate-bounce"
-        style={{ animationDuration: '4s' }}
+        className="absolute bg-white bg-opacity-90 border border-gray-100 shadow-xl rounded-xl px-4 py-2 z-20 animate-bounce"
+        style={{ top: '50%', left: '15%', animationDuration: '4s' }}
       >
         <div className="text-xs text-gray-500 font-semibold">Live GMP</div>
         <div className="text-sm font-bold text-gray-800">₹145.00</div>
