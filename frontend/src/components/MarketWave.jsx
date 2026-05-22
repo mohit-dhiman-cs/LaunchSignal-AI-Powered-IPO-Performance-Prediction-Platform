@@ -2,25 +2,25 @@ import React from 'react';
 
 export default function MarketWave() {
   return (
-    <div className="relative w-full max-w-lg mx-auto aspect-square flex flex-col items-center justify-center">
+    <div className="relative w-full max-w-lg mx-auto aspect-video flex flex-col items-center justify-center">
       
       {/* Background glow orb to give it depth */}
       <div 
-        className="absolute bg-blue-400 rounded-full blur-3xl opacity-20 animate-pulse"
-        style={{ width: '250px', height: '250px' }}
+        className="absolute bg-blue-500 rounded-full blur-[100px] opacity-20 animate-pulse"
+        style={{ width: '300px', height: '300px' }}
       ></div>
 
-      {/* Modern SVG Stock Wave */}
-      <svg viewBox="0 0 500 400" className="w-full h-full relative z-10 drop-shadow-2xl overflow-visible">
+      {/* Modern SVG Stock Wave - Pure Visual */}
+      <svg viewBox="0 0 600 300" className="w-full h-full relative z-10 drop-shadow-2xl overflow-visible">
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#93c5fd" stopOpacity="0" />
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
             <stop offset="20%" stopColor="#3b82f6" stopOpacity="1" />
             <stop offset="80%" stopColor="#1d4ed8" stopOpacity="1" />
             <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0" />
           </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
               <feMergeNode in="SourceGraphic"/>
@@ -28,18 +28,18 @@ export default function MarketWave() {
           </filter>
         </defs>
 
-        {/* Shadow Wave */}
+        {/* Shadow / Secondary Wave */}
         <path 
-          d="M 0 300 C 100 300, 150 200, 250 250 C 350 300, 400 100, 500 150" 
+          d="M 0 250 C 150 250, 200 150, 300 180 C 400 210, 450 80, 600 120" 
           fill="none" 
           stroke="#e2e8f0" 
-          strokeWidth="4"
-          className="opacity-50"
+          strokeWidth="3"
+          className="opacity-60"
         />
 
         {/* Primary Glowing Wave */}
         <path 
-          d="M 0 250 C 120 250, 180 150, 250 180 C 320 210, 400 80, 500 100" 
+          d="M 0 200 C 120 200, 180 100, 300 130 C 420 160, 480 40, 600 60" 
           fill="none" 
           stroke="url(#lineGradient)" 
           strokeWidth="6"
@@ -47,36 +47,13 @@ export default function MarketWave() {
         />
 
         {/* Data Nodes */}
-        <circle cx="250" cy="180" r="6" fill="#ffffff" stroke="#3b82f6" strokeWidth="3" className="animate-pulse" />
-        <circle cx="500" cy="100" r="8" fill="#ffffff" stroke="#1d4ed8" strokeWidth="4" />
+        <circle cx="300" cy="130" r="6" fill="#ffffff" stroke="#3b82f6" strokeWidth="3" className="animate-pulse" />
+        <circle cx="600" cy="60" r="8" fill="#ffffff" stroke="#1d4ed8" strokeWidth="4" />
         
         {/* Connection Lines (Grid) */}
-        <line x1="250" y1="180" x2="250" y2="350" stroke="#cbd5e1" strokeDasharray="4 4" strokeWidth="2" />
-        <line x1="500" y1="100" x2="500" y2="350" stroke="#94a3b8" strokeDasharray="4 4" strokeWidth="2" />
+        <line x1="300" y1="130" x2="300" y2="280" stroke="#cbd5e1" strokeDasharray="4 4" strokeWidth="2" />
+        <line x1="600" y1="60" x2="600" y2="280" stroke="#94a3b8" strokeDasharray="4 4" strokeWidth="2" />
       </svg>
-
-      {/* Floating UI Elements - Bulletproof Styling */}
-      <div 
-        className="absolute bg-white bg-opacity-90 border border-blue-100 shadow-xl rounded-xl px-4 py-3 z-20 transition-transform duration-1000 ease-in-out hover:-translate-y-2"
-        style={{ top: '25%', right: '5%' }}
-      >
-        <div className="text-xs text-gray-500 font-semibold mb-1 uppercase tracking-wider">Projected Return</div>
-        <div className="text-xl font-bold text-blue-600 flex items-center gap-2">
-          <svg width="20" height="20" className="text-green-500" fill="none" stroke="#22c55e" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-          </svg>
-          + 42.8%
-        </div>
-      </div>
-
-      <div 
-        className="absolute bg-white bg-opacity-90 border border-gray-100 shadow-xl rounded-xl px-4 py-2 z-20 animate-bounce"
-        style={{ top: '50%', left: '15%', animationDuration: '4s' }}
-      >
-        <div className="text-xs text-gray-500 font-semibold">Live GMP</div>
-        <div className="text-sm font-bold text-gray-800">₹145.00</div>
-      </div>
-
     </div>
   );
 }
