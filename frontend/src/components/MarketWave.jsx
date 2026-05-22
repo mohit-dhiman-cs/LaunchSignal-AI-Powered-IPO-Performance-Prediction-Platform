@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function MarketWave() {
   return (
-    <div className="relative w-full max-w-lg mx-auto aspect-video flex flex-col items-center justify-center">
+    <div className="relative w-full h-full flex items-center justify-start lg:-mt-12 lg:-ml-8">
       
       {/* Background glow orb to give it depth */}
       <div 
@@ -11,7 +11,7 @@ export default function MarketWave() {
       ></div>
 
       {/* Modern SVG Stock Wave - Pure Visual */}
-      <svg viewBox="0 0 600 300" className="w-full h-full relative z-10 drop-shadow-2xl overflow-visible">
+      <svg viewBox="0 0 600 300" className="w-[110%] max-w-[600px] h-auto relative z-10 drop-shadow-2xl overflow-visible">
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
