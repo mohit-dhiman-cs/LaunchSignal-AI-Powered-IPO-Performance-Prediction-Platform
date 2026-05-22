@@ -41,24 +41,21 @@ export default function PredictorPage() {
 
         {/* ── Hero ─────────────────────────────────── */}
         {!hasResult && (
-          <div className="hero-section animate-fadeUp">
+          <div className="hero-section animate-fadeUp" style={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
             <ParticleWave />
-            <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
-              <div className="hero-tag">
+            <div className="hero-content" style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
+              <div className="hero-tag" style={{ justifyContent: 'center' }}>
                 <span className="live-dot" />
                 ML Model · R² = 93.7% · Live GMP + Real-Time Market Data
               </div>
-              <h1 className="hero-title" style={{ fontSize: '2.8rem', lineHeight: 1.1 }}>
+              <h1 className="hero-title" style={{ fontSize: '3.2rem', lineHeight: 1.1 }}>
                 <span>LaunchSignal</span><br />
                 AI Powered IPO Performance Prediction
               </h1>
-              <p className="hero-subtitle">
+              <p className="hero-subtitle" style={{ maxWidth: '600px', margin: '0 auto' }}>
                 Select a live IPO or enter details manually. Our AI explains <em>why</em> it
                 made each prediction — not just a number, but the full story behind it.
               </p>
-            </div>
-            <div className="hero-visual" style={{ position: 'relative', zIndex: 1 }}>
-              <MarketWave />
             </div>
           </div>
         )}

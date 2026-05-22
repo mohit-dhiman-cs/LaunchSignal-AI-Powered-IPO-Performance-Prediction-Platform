@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function MarketWave() {
   return (
-    <div className="relative w-full h-full flex items-center justify-start lg:-mt-12 lg:-ml-8">
+    <div className="relative w-full h-full flex items-center justify-center">
       
       {/* Background glow orb to give it depth */}
       <div 
