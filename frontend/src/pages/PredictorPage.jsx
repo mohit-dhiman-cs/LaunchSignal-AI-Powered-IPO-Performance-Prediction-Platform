@@ -10,7 +10,7 @@ import NewsSentiment from '../components/NewsSentiment';
 import ModelComparison from '../components/ModelComparison';
 import { SubscriptionChart } from '../components/Charts';
 import { useToast } from '../context/ToastContext';
-import Globe from '../components/Globe';
+import MarketWave from '../components/MarketWave';
 import ParticleWave from '../components/ParticleWave';
 
 export default function PredictorPage() {
@@ -58,7 +58,7 @@ export default function PredictorPage() {
               </p>
             </div>
             <div className="hero-visual" style={{ position: 'relative', zIndex: 1 }}>
-              <Globe />
+              <MarketWave />
             </div>
           </div>
         )}

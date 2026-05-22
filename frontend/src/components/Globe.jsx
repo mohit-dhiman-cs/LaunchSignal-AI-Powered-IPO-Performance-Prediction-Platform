@@ -27,7 +27,7 @@ export default function Globe() {
       diffuse: 1.2,
       mapSamples: 16000, 
       mapBrightness: 6,
-      baseColor: [0.6, 0.6, 0.6], // Grey map dots 
+      baseColor: [1, 1, 1], // Pure white sphere surface (makes dots visible)
       markerColor: [0.145, 0.388, 0.925], // Brand Blue markers
       glowColor: [1, 1, 1], // White ambient glow
       markers: [
