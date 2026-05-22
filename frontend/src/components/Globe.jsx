@@ -23,13 +23,13 @@ export default function Globe() {
       height: 500 * 2,
       phi: 0,
       theta: 0.15,
-      dark: 1, 
+      dark: 0, // 0 = Light theme mode
       diffuse: 1.2,
-      mapSamples: 4000, 
+      mapSamples: 16000, 
       mapBrightness: 6,
-      baseColor: [0.15, 0.2, 0.3], // Navy blue earth
-      markerColor: [1, 1, 1], // White markers
-      glowColor: [0.15, 0.2, 0.3],
+      baseColor: [0.6, 0.6, 0.6], // Grey map dots 
+      markerColor: [0.145, 0.388, 0.925], // Brand Blue markers
+      glowColor: [1, 1, 1], // White ambient glow
       markers: [
         { location: [19.0760, 72.8777], size: 0.1 },
         { location: [40.7128, -74.0060], size: 0.08 },
