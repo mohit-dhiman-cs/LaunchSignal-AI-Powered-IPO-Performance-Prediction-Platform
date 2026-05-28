@@ -12,8 +12,9 @@ from utils import (
     classify_risk, compute_confidence, validate_input,
     compute_ipo_score, compute_feature_contributions
 )
-from database import log_prediction
+from database import log_prediction, save_gmp_history
 from nlp_engine import analyze_ipo_sentiment
+from risk_analyzer import analyze_risk
 
 predict_bp = Blueprint('predict', __name__)
 
@@ -83,9 +84,9 @@ def _run_prediction(payload: dict, market_trend: float):
             if m_name == 'Classifier':
                 # Run the two-step AI classification
                 prob = m_data['model'].predict_proba(X_scaled)[0]
-                profit_probability = round(prob[1] * 100, 1) # Probability of class 1 (Profit)
+                profit_probability = round(prob[1] * 100, 1)  # Probability of class 1 (Profit)
                 continue
-                
+
             pred = round(float(m_data['model'].predict(X_scaled)[0]), 2)
             comparisons.append({
                 "name": m_name,
@@ -106,13 +107,44 @@ def predict():
     market_trend = data.get('market_trend') or _fetch_market_trend()
     predicted_return, risk, confidence, score, contributions, row, comparisons, profit_prob, model_name = _run_prediction(data, market_trend)
 
-    # Perform NLP Sentiment Analysis if company name is provided
+    # ── Confidence interval ──────────────────────────────────────────
+    margin = (1 - confidence) * 50
+    confidence_low  = round(predicted_return - margin, 2)
+    confidence_high = round(predicted_return + margin, 2)
+
+    # ── Listing price range (if issue_price provided) ────────────────
+    listing_price_range = None
+    issue_price = data.get('issue_price')
+    if issue_price is not None:
+        try:
+            ip = float(issue_price)
+            listing_price_range = {
+                'low':  round(ip * (1 + confidence_low  / 100), 2),
+                'high': round(ip * (1 + confidence_high / 100), 2),
+            }
+        except (ValueError, TypeError):
+            pass
+
+    # ── NLP Sentiment Analysis ───────────────────────────────────────
     nlp_sentiment = analyze_ipo_sentiment(data.get("company_name", "Unknown"))
+
+    # ── AI Risk Analysis ─────────────────────────────────────────────
+    risk_inputs = {**row, 'market_trend': market_trend}
+    for optional_key in ('pe_ratio', 'debt_equity', 'profit_margin', 'revenue_growth'):
+        if optional_key in data:
+            risk_inputs[optional_key] = data[optional_key]
+    try:
+        risk_analysis_result = analyze_risk(risk_inputs)
+    except Exception as e:
+        risk_analysis_result = {'error': str(e)}
 
     result = {
         "predicted_return":   predicted_return,
         "risk":               risk,
         "confidence":         confidence,
+        "confidence_low":     confidence_low,
+        "confidence_high":    confidence_high,
+        "listing_price_range": listing_price_range,
         "market_trend_used":  market_trend,
         "score":              score,
         "feature_impact":     contributions,
@@ -120,13 +152,26 @@ def predict():
         "inputs":             row,
         "profit_probability": profit_prob,
         "model_used":         model_name,
-        "nlp_analysis":       nlp_sentiment
+        "nlp_analysis":       nlp_sentiment,
+        "risk_analysis":      risk_analysis_result,
     }
 
     try:
         log_prediction({**row, **result, "company_name": data.get("company_name", "Unknown")})
     except Exception as e:
         print(f"[DB] Logging failed: {e}")
+
+    # ── Track GMP history ────────────────────────────────────────────
+    company_name = data.get("company_name", "").strip()
+    if company_name:
+        try:
+            save_gmp_history(
+                company_name=company_name,
+                gmp=row['gmp'],
+                issue_price=issue_price
+            )
+        except Exception as e:
+            print(f"[DB] GMP history logging failed: {e}")
 
     return jsonify(result)
 
@@ -145,21 +190,21 @@ def whatif():
     market_trend = float(data.get('market_trend', 0.0))
     predicted_return, risk, confidence, score, contributions, _, comparisons, profit_prob, model_name = _run_prediction(data, market_trend)
 
+    margin = round((1 - confidence) * 50, 2)
+    confidence_low  = round(predicted_return - margin, 2)
+    confidence_high = round(predicted_return + margin, 2)
+
     return jsonify({
-        "predicted_return": predicted_return,
-        "risk":             risk,
-        "confidence":       confidence,
-        "score":            score,
-        "feature_impact":   contributions,
+        "predicted_return":  predicted_return,
+        "risk":              risk,
+        "confidence":        confidence,
+        "confidence_low":    confidence_low,
+        "confidence_high":   confidence_high,
+        "score":             score,
+        "feature_impact":    contributions,
         "profit_probability": profit_prob,
-        "model_used":         model_name
+        "model_used":        model_name
     })
-
-
-@predict_bp.route('/history', methods=['GET'])
-def history():
-    from database import get_history
-    return jsonify(get_history(limit=50))
 
 
 @predict_bp.route('/sectors', methods=['GET'])

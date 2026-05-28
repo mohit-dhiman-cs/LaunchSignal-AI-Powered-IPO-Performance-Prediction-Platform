@@ -111,8 +111,8 @@ export default function AutocompleteInput({
         ref={inputRef}
         id={id}
         type="text"
-        className="form-input"
         placeholder={placeholder}
+        className="form-input"
         value={value}
         autoComplete="off"
         onChange={e => onChange(e.target.value)}
@@ -141,10 +141,10 @@ export default function AutocompleteInput({
           position: 'absolute',
           top: 'calc(100% + 6px)',
           left: 0, right: 0,
-          background: 'rgba(10,14,26,0.98)',
-          border: '1px solid rgba(59,130,246,0.35)',
+          background: 'rgba(17,24,39,0.98)',
+          border: '1px solid rgba(59,130,246,0.3)',
           borderRadius: 'var(--radius-md)',
-          boxShadow: '0 12px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1)',
+          boxShadow: '0 12px 40px rgba(0,0,0,0.7)',
           backdropFilter: 'blur(20px)',
           zIndex: 500,
           overflow: 'hidden',

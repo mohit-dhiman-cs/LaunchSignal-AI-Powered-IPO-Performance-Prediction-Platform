@@ -10,3 +10,5 @@ beautifulsoup4
 requests
 textblob
 gunicorn
+flask-jwt-extended
+bcrypt

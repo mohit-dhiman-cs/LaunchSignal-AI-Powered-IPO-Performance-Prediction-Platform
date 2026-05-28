@@ -2,6 +2,131 @@ import { useEffect, useRef } from 'react';
 import { useCountUp } from '../hooks/useCountUp';
 import TiltCard from './TiltCard';
 
+/* ── Confidence Interval Bar ── */
+function ConfidenceIntervalBar({ low, high, center }) {
+  if (low === undefined || high === undefined) return null;
+  // Determine display range: min to max across 0 and the values
+  const rangeMin = Math.min(low, high, 0) - 5;
+  const rangeMax = Math.max(low, high, 0) + 5;
+  const span     = rangeMax - rangeMin || 1;
+  const toX      = v => ((v - rangeMin) / span) * 100;
+
+  const leftPct   = toX(Math.min(low, high));
+  const widthPct  = Math.abs(toX(high) - toX(low));
+  const centerPct = toX(center ?? 0);
+
+  // Bar color logic
+  let barColor;
+  if (low >= 0 && high >= 0)   barColor = 'linear-gradient(90deg, #059669, #18B981)';
+  else if (low < 0 && high < 0) barColor = 'linear-gradient(90deg, #DC2626, #EF4444)';
+  else                          barColor = 'linear-gradient(90deg, #EF4444, #F59E0B, #18B981)';
+
+  return (
+    <div style={{ marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 7 }}>
+        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+          Confidence Range
+        </span>
+        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-secondary)' }}>
+          {low >= 0 ? '+' : ''}{low.toFixed(1)}% — {high >= 0 ? '+' : ''}{high.toFixed(1)}%
+        </span>
+      </div>
+      <div style={{ position: 'relative', height: 10, background: 'rgba(255,255,255,0.06)', borderRadius: 99 }}>
+        {/* Colored range */}
+        <div style={{
+          position: 'absolute', left: `${leftPct}%`, width: `${widthPct}%`,
+          top: 0, bottom: 0, background: barColor, borderRadius: 99, opacity: 0.85,
+        }} />
+        {/* Zero line */}
+        {rangeMin < 0 && rangeMax > 0 && (
+          <div style={{
+            position: 'absolute', left: `${toX(0)}%`, top: -2, bottom: -2,
+            width: 2, background: 'rgba(255,255,255,0.25)', borderRadius: 1,
+          }} />
+        )}
+        {/* Center marker */}
+        <div style={{
+          position: 'absolute', left: `${centerPct}%`, top: -3, bottom: -3,
+          width: 3, background: '#fff', borderRadius: 2,
+          boxShadow: '0 0 8px rgba(255,255,255,0.5)',
+          transform: 'translateX(-50%)',
+        }} />
+      </div>
+    </div>
+  );
+}
+
+/* ── Probability Ring ── */
+function ProbabilityRing({ probability }) {
+  if (probability === undefined || probability === null) return null;
+  const r    = 42;
+  const circ = 2 * Math.PI * r;
+  const pct  = Math.min(Math.max(probability, 0), 100) / 100;
+  const dash = circ * pct;
+  const col  = probability > 65 ? '#18B981' : probability >= 40 ? '#F59E0B' : '#EF4444';
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
+      <div style={{ position: 'relative', width: 88, height: 88, flexShrink: 0 }}>
+        <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', transform: 'rotate(-90deg)' }}>
+          <circle cx="50" cy="50" r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="9" />
+          <circle
+            cx="50" cy="50" r={r} fill="none"
+            stroke={col} strokeWidth="9" strokeLinecap="round"
+            strokeDasharray={`${dash} ${circ - dash}`}
+            style={{ filter: `drop-shadow(0 0 8px ${col})`, transition: 'stroke-dasharray 1s ease' }}
+          />
+        </svg>
+        <div style={{
+          position: 'absolute', inset: 0,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span style={{
+            fontFamily: 'Space Grotesk, sans-serif', fontSize: '1.25rem', fontWeight: 800, color: col, lineHeight: 1,
+          }}>{probability}%</span>
+        </div>
+      </div>
+      <div>
+        <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.8px', marginBottom: 4 }}>
+          Probability of Gain
+        </div>
+        <div style={{ fontSize: '0.82rem', color: col, fontWeight: 600 }}>
+          {probability > 65 ? '🚀 Strong likelihood of profit'
+           : probability >= 40 ? '⚖️ Moderate chance of gain'
+           : '⚠️ High risk of listing loss'}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Listing Price Range ── */
+function ListingPriceRange({ range }) {
+  if (!range) return null;
+  const { low, high } = range;
+  if (low === undefined || high === undefined) return null;
+  return (
+    <div style={{ marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 5 }}>
+      <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+        Expected Listing Price
+      </span>
+      <div style={{
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        background: 'linear-gradient(90deg, rgba(24,185,129,0.12), rgba(37,99,235,0.12))',
+        border: '1px solid rgba(24,185,129,0.25)',
+        borderRadius: 99, padding: '6px 18px',
+        fontSize: '1rem', fontWeight: 700,
+        fontFamily: 'Space Grotesk, sans-serif',
+        color: 'var(--text-primary)',
+        alignSelf: 'flex-start',
+      }}>
+        <span style={{ color: '#18B981' }}>₹{low.toLocaleString('en-IN')}</span>
+        <span style={{ color: 'var(--text-muted)', fontWeight: 400, fontSize: '0.9rem' }}>—</span>
+        <span style={{ color: '#2563EB' }}>₹{high.toLocaleString('en-IN')}</span>
+      </div>
+    </div>
+  );
+}
+
 function RiskIcon({ risk }) {
   if (risk === 'Low')    return <span>🟢</span>;
   if (risk === 'Medium') return <span>🟡</span>;
@@ -77,6 +202,19 @@ export default function ResultCard({ result }) {
           {isPositive ? '🚀 Expected listing gain' : '⚠️ Expected listing loss'}
         </p>
       </div>
+
+      {/* Confidence Interval Bar */}
+      <ConfidenceIntervalBar
+        low={result.confidence_low}
+        high={result.confidence_high}
+        center={ret}
+      />
+
+      {/* Probability Ring */}
+      <ProbabilityRing probability={result.profit_probability} />
+
+      {/* Listing Price Range */}
+      <ListingPriceRange range={result.listing_price_range} />
 
       <hr className="divider" />
 
