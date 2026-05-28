@@ -40,7 +40,10 @@ export default function SectorHeatmap() {
 
   useEffect(() => {
     axios.get(`${API}/sector-heatmap`)
-      .then(res => setData(res.data || []))
+      .then(res => {
+        const d = res.data;
+        setData(Array.isArray(d) ? d : (d?.sectors ?? []));
+      })
       .catch(() => setError('Failed to load sector heatmap'))
       .finally(() => setLoading(false));
   }, []);
